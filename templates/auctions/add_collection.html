@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+			<div class="container">
+					<div class="row">
+						<div class="col-lg-3"></div>
+						<div class="col-lg-9">
+							<div class="right_part space-y-20">
+								<h1 class="color_white"> Register new account</h1>
+								<p class="color_white" style="color: white !important"
+									>You can set preferred display name, create your profile URL and
+									manage other personal settings.</p
+								>
+								<div class="box edit_box w-full space-y-20">
+									<form action="{% url 'auctions:add_collection' %}" method="POST">
+										{% csrf_token %}
+									<div class="row">
+										<div class="col-lg-6 account-info">
+											<h3 class="mb-20"> Add Collection  </h3>
+											<div class="form-group space-y-10 mb-0">
+												<div class="space-y-20">
+													<div class="space-y-10">
+														<span class="nameInput">Title*</span>
+														<input
+															type="text"
+															name="title"
+															class="form-control"
+															placeholder="title"
+															required
+														/>
+													</div>
+
+													<div class="space-y-10">
+														<span class="nameInput">Quantity*</span>
+														<input
+															type="number"
+															name="quantity"
+															class="form-control"
+															placeholder="quantity"
+															required
+														/>
+													</div>
+                                                    <div class="space-y-10">
+														<span class="nameInput">Main Image*</span>
+														<input type="file" accept="image/*" name="image_main">
+													</div>
+
+                                                    <div class="space-y-10">
+														<span class="nameInput">Image 1</span>
+														<input type="file" accept="image/*" name="image_1">
+													</div>
+
+                                                    <div class="space-y-10">
+														<span class="nameInput">Image 2</span>
+														<input type="file" accept="image/*" name="image_2">
+													</div>
+
+                                                    <div class="space-y-10">
+														<span class="nameInput">Image 3</span>
+														<input type="file" accept="image/*" name="image_3">
+													</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="hr"></div>
+									<input type="submit" name="add_collections" value="Add Collection" class="btn btn-grad btn-block">
+
+								</div>
+									</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+{% endblock %}

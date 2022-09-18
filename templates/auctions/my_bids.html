@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | My Bids {% endblock %}
+
+{% block content %}
+<!-- ====== headers -->
+
+                <div class="mt-10">
+                    <div class="container">
+                        <div class="section__head">
+                            <div class="d-md-flex
+							sm:space-y-20
+							space-x-20
+							justify-content-between
+							align-items-center">
+                                <h2 class="section__title text-center">My All Time Bids</h2>
+                                <div class="dropdown text-center">
+                                    <button class="btn btn-white btn-sm dropdown-toggle"
+                                            type="button"
+
+                                            data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        Recent Active
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% if my_bids_list %}
+                                {% for bid in my_bids_list %}
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                    <div class="card__item four">
+                                        <div class="card_body space-y-10">
+                                            <!-- =============== -->
+                                            <div class="creators space-x-10">
+                                                <div class="avatars space-x-3">
+                                                    <a href="Profile.html">
+                                                        <img
+                                                                src="{% static 'img/avatars/avatar_3.png' %}"
+                                                                alt="Avatar"
+                                                                class="avatar avatar-sm"/>
+                                                    </a>
+                                                    <a href="Profile.html">
+                                                        <p class="avatars_name txt_xs">{{ bid.auction.author }}</p>
+                                                    </a>
+                                                </div>
+                                                <div class="avatars space-x-3">
+                                                    <a href="Profile.html">
+                                                        <img
+                                                                src="{% static 'img/avatars/avatar_4.png' %}"
+                                                                alt="Avatar"
+                                                                class="avatar avatar-sm"/>
+                                                    </a>
+                                                    <a href="Profile.html">
+                                                        <p class="avatars_name txt_xs">{{ bid.auction.author_2 }}</p>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="card_head">
+                                                <a href="{% url 'auctions:detail' bid.auction.id %}">
+                                                    <img
+                                                            src="{{ bid.auction.image.url }}"
+                                                            alt="item
+                                                    img"/>
+                                                </a>
+                                                <a href="#" class="likes space-x-3">
+                                                    <i class="ri-heart-3-fill"></i>
+                                                    <span class="txt_sm"></span>
+                                                </a>
+                                            </div>
+                                            <!-- =============== -->
+
+                                            <h6 class="card_title">
+                                                <a class="color_black"
+                                                   href="Item-details.html">
+                                                    {{ bid.auction.title }}
+                                                </a>
+                                            </h6>
+                                            <div class="card_footer d-block space-y-10">
+                                                <div class="card_footer justify-content-between">
+                                                    <div class="creators">
+                                                        <p class="txt_sm">{{ bid.auction.quantity }} in stock</p>
+                                                    </div>
+                                                    <a href="#" class="">
+                                                        <p class="txt_sm">
+                                                            Price: <span class="color_green txt_sm">{{bid.amount}}$</span>
+                                                        </p>
+                                                    </a>
+                                                </div>
+                                                <div class="hr"></div>
+                                                <div class="d-flex align-items-center space-x-10 justify-content-between">
+                                                    <div class="d-flex align-items-center space-x-5">
+                                                        <a href="#" data-toggle="modal"
+                                                           data-target="#popup_history">
+                                                            <p class="btn btn-sm btn-dark" style="width: auto">
+                                                                Bid: {{ bid.amount }}$
+                                                            </p>
+                                                        </a>
+                                                    </div>
+                                                    {% if bid.auction.is_active %}
+                                                        <a class="btn btn-sm btn-orange" href="#">Pending</a>
+                                                    {% else %}
+                                                        {% if bid.auction.winner and bid.auction.winner == user %}
+                                                            <a class="btn btn-sm btn-success" href="#">Won for {{ bid.amount }}$</a>
+                                                        {% else %}
+                                                            <a class="btn btn-sm btn-danger" href="#">lost</a>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% endfor %}
+                            {% else %}
+                                <h4>No bids are available.</h4>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="Marketplace.html" class="btn btn-sm btn-white">
+                                <i class="ri-restart-line"></i>
+                                View all items
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {% include 'partials/_copyright.html' %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

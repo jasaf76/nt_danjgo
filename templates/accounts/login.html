@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Login Page {% endblock %}
+
+{% block content %}
+<html lang="en">
+<head>
+		<meta charset="UTF-8" />
+		<meta name="title" content="Raroin" />
+		<meta name="description" content="Premium NFT marketplace theme" />
+		<meta
+			name="keywords"
+			content="bootstrap, creabik, ThemeForest, bootstrap5, agency theme, saas
+			theme, sass, html5"
+			/>
+		<meta name="robots" content="index, follow" />
+		<meta name="language" content="English" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title> - Raroin - home 5 </title>
+		<meta name="msapplication-TileColor" content="#da532c" />
+		<meta name="theme-color" content="#ffffff" />
+		<!-- 🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 STYLES -->
+		<link rel="stylesheet" href="{% static 'css/plugins/remixicon.css' %}" />
+		<link
+			rel="stylesheet"
+			href="{% static 'css/plugins/bootstrap.min.css' %}"
+			/>
+		<link
+			rel="stylesheet"
+			href="{% static 'css/plugins/swiper-bundle.min.css' %}"
+			/>
+		<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+	</head>
+	<body class="body">
+
+		<div class="overflow-hidden">
+			<div class="bg-dark py-10">
+				<div class="container">
+					<div
+						class="text-center
+						d-flex
+						justify-content-between
+						space-x-10
+						align-items-center">
+						<div class="space-x-10 d-flex align-items-center">
+							<lottie-player
+								src="https://assets6.lottiefiles.com/private_files/lf30_kqshlcsx.json"
+								background="404.html"
+								speed="2"
+								style="width: 50px; height: 50px"
+								loop
+								autoplay></lottie-player>
+							<p class="color_white">
+								Dark mode is
+								<span style="color: rgb(0, 255, 170)">Coming SOON </span>
+							</p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+            <div class="edit_profile register">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3"></div>
+						<div class="col-lg-9">
+							<div class="right_part space-y-20">
+								<h1 class="color_white"> Account Login</h1>
+
+								<div class="box edit_box w-full space-y-20">
+									<form action="{% url 'login' %}" method="POST">
+										{% csrf_token %}
+									<div class="row">
+										<div class="col-lg-6 account-info">
+											<!-- Alerts -->
+              								{% include 'partials/_alerts.html' %}
+											<h3 class="mb-20"> 🍉 Login  </h3>
+											<div class="form-group space-y-10 mb-0">
+												<div class="space-y-20">
+													<div class="space-y-10">
+														<span class="nameInput">First Name</span>
+														<input
+															type="text"
+															name="username"
+															class="form-control"
+															placeholder="username"
+														/>
+													</div>
+
+													<div class="space-y-10">
+														<span class="nameInput">Password</span>
+														<input
+															type="password"
+															name="password"
+															class="form-control"
+															placeholder="Re-type Password"
+														/>
+													</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="hr"></div>
+									<input type="submit" value="Login" class="btn btn-grad btn-block">
+
+								</div>
+									</form>
+									<div class="hr"></div>
+									<p>Don't Have an Account?<a class="color_black" href="{% url 'register' %}"> Create Account Now</a></p>
+									<div class="hr"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- 🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 SCRIPTS -->
+		<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+		<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+		<script src="{% static 'js/gsap.min.js' %}"></script>
+		<script src="{% static 'js/ScrollTrigger.min.js' %}"></script>
+		<script src="{% static 'js/sticky-sidebar.js' %}"></script>
+		<script src="{% static 'js/script.js' %}"></script>
+		<script src="{% static 'js/web3.min.js' %}"></script>
+		<script src="{% static 'js/moralis.js' %}"></script>
+		<script src="{% static 'js/nft.js' %}"></script>
+		<script src="{% static 'js/lottie-player.js' %}"></script>
+	</body>
+</html>
+{% endblock %}

@@ -1,0 +1,342 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | User Dashboard {% endblock %}
+
+{% block content %}
+<!-- ====== header -->
+
+			<div class="mb-100">
+				<div class="hero__profile">
+					<div class="cover">
+						<img src="{% static 'img/bg/prrofile.png' %}" alt="">
+					</div>
+					<div class="infos">
+						<div class="container">
+							<div class="row flex-wrap align-items-center justify-content-between sm:space-y-50">
+								<div class="col-md-auto mr-20">
+									<div class="avatars d-flex space-x-20
+										align-items-center">
+										<div class="avatar_wrap">
+											<img class="avatar avatar-lg"
+												src="{{user.userprofile.profile_photo.url}}"
+												alt="avatar">
+										</div>
+										<h5>{{ user.first_name }} {{ user.last_name }}</h5>
+										<br>
+										<h5>@{{ user.username }}</h5>
+									</div>
+								</div>
+								<div class="col-md-auto">
+									<div class="d-sm-flex flex-wrap align-items-center
+										space-x-20 mb-20_reset d-sm-block">
+										<div class="mb-20">
+											<div class="copy">
+												<span class="color_text"><strong> Member Since: </strong>{{user.userprofile.created_on}} </span>
+												<a href="#">
+													<i class="ri-user-line color_text"></i>
+												</a>
+											</div>
+										</div>
+										<div class="d-flex flex-wrap align-items-center
+											space-x-20">
+											<div class="mb-20">
+												<a href="#" class="btn btn-dark btn-sm">
+													Follow
+												</a>
+
+											</div>
+											<div class="mb-20">
+												<div class="share">
+													<div class="icon">
+														<a href="#"> <i
+																class="ri-share-line"></i>
+														</a>
+													</div>
+													<div class="dropdown__popup">
+														<ul class="space-y-10">
+															<li> <a href="#"> <i
+																		class="ri-facebook-line"></i>
+																</a>
+															</li>
+															<li> <a href="#"> <i
+																		class="ri-messenger-line"></i>
+																</a>
+															</li>
+															<li> <a href="#"> <i
+																		class="ri-whatsapp-line"></i>
+																</a>
+															</li>
+															<li> <a href="#"> <i
+																		class="ri-youtube-line"></i>
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<div class="mb-20">
+												<!--<div class="more">
+													<div class="icon">
+														<a href="#"> <i
+																class="ri-more-fill"></i>
+														</a>
+													</div>
+													<div class="dropdown__popup">
+														<ul class="space-y-10">
+															<li>
+																<a href="#"
+																	class="space-x-10
+																	d-flex">
+																	<i class="ri-flag-line"></i>
+																	<span> Report </span>
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div>-->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-3 col-md-7 order-md-0 order-1">
+						<div class="profile__sidebar">
+							<div class="space-y-40">
+								<div class="space-y-10">
+									<h5>About me</h5>
+									<div class="box space-y-20">
+										<p>
+											{{ user.userprofile.about_me}}
+										</p>
+										<div class="row">
+											<div class="col-6">
+												<span class="txt_sm color_text">Collections</span>
+												<h4>105</h4>
+											</div>
+											<div class="col-6">
+												<span class="txt_sm color_text">Creations</span>
+												<h4>406</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="space-y-10">
+									<h5>Follow me</h5>
+									<div class="box">
+										<ul class="social_profile space-y-10 overflow-hidden">
+											<li>
+												<a href="{{ user.userprofile.facebook}}">
+													<i class="ri-facebook-line"></i>
+													<span class="color_text">facebook</span>
+												</a>
+											</li>
+											<li>
+												<a href="{{ user.userprofile.messenger}}">
+													<i class="ri-messenger-line"></i>
+													<span class="color_text"> messenger</span>
+												</a>
+											</li>
+											<li>
+												<a href="{{ user.userprofile.whatsapp}}">
+													<i class="ri-whatsapp-line"></i>
+													<span class="color_text"> whatsapp</span>
+												</a>
+											</li>
+											<li>
+												<a href="{{ user.userprofile.youtube}}">
+													<i class="ri-youtube-line"></i>
+													<span class="color_text">youtube</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-lg-9 col-md-12 order-md-1 order-0">
+						<div class="profile__content">
+							<div class="d-flex justify-content-between">
+								<div class="space-x-10">
+									<div class="d-flex justify-content-between">
+										<ul class="nav nav-tabs d-flex space-x-10 mb-30"
+											role="tablist">
+											<li class="nav-item">
+												<a
+													class="btn btn-white btn-sm active"
+													data-toggle="tab"
+													href="#tabs-1"
+													role="tab">
+													Creations</a>
+											</li>
+											<li class="nav-item">
+												<a
+													class="btn btn-white btn-sm"
+													data-toggle="tab"
+													href="#tabs-2"
+													role="tab">
+													Collections</a>
+											</li>
+										</ul>
+										<!-- Tab panes -->
+										<!--<div class="dropdown d-none d-sm-block">
+											<button
+												class="btn btn-white btn-sm dropdown-toggle"
+												type="button"
+
+												data-toggle="dropdown"
+												aria-haspopup="true"
+												aria-expanded="false">
+												Recent Active
+											</button>
+											<div
+												class="dropdown-menu">
+												<a class="dropdown-item" href="#">Action</a>
+												<a class="dropdown-item" href="#">Another
+													action</a>
+												<a class="dropdown-item" href="#">Something
+													else here</a>
+											</div>
+										</div>-->
+									</div>
+
+									<div class="tab-content">
+										<div class="tab-pane active" id="tabs-1"
+											role="tabpanel">
+											<div class="row mb-30_reset">
+												{% for auction in auctions %}
+												<div class="col-xl-4 col-lg-6 col-md-6">
+													<div class="card__item three">
+														<div class="card_body space-y-10">
+															<!-- =============== -->
+															<div class="card_head">
+																<img
+																	src="{{auction.image.url}}"
+																	alt=""
+																	/>
+																<a href="#" class="likes
+																	space-x-3">
+																	<i
+																		class="ri-heart-3-fill"></i>
+																	<span class="txt_sm">  </span>
+																</a>
+																<div class="action">
+																	<span class="btn
+																		btn-success btn-sm
+																		btn_auction"
+																		data-toggle="modal"
+																		data-target="#popup_bid">
+																		<i
+																			class="ri-auction-line
+																			color_white"></i>
+																		Sold for: {{auction.min_value}} USD
+																	</span>
+																</div>
+															</div>
+															<!-- =============== -->
+															<h6 class="card_title">
+																<a class="color_black"
+																	href="{% url 'auctions:detail' auction.id %}">
+																	{{auction.title}}
+																</a>
+															</h6>
+
+															<div class="card_footer d-block
+																space-y-10">
+																<div class="d-flex
+																	justify-content-between
+																	align-items-center">
+
+																	<a href="#" class="space-x-3">
+																		<p class="color_green txt_lg">Price: {{auction.min_value}} USD</p>
+																	</a>
+																</div>
+																<div class="hr"></div>
+
+																<!--<div class="d-flex
+																	align-items-center
+																	space-x-10">
+																	<i
+																		class="ri-vip-crown-line"></i>
+																	<p class="color_text
+																		txt_sm"
+																		style="width: auto">
+																		Highest bid
+																	</p>
+																	<span class="color_black
+																		txt_sm">0.022
+																		ETH</span>
+																</div>-->
+															</div>
+														</div>
+													</div>
+												</div>
+												{% endfor %}
+												<div class="hr"></div>
+											</div>
+										</div>
+										<div class="tab-pane" id="tabs-2" role="tabpanel">
+											<div class="row justify-content-center mb-30_reset">
+												{% for collection in collections %}
+													<div class="col-lg-6 col-md-6 col-sm-8">
+													<div class="collections space-y-10 mb-30">
+														<div class="collections_item">
+															<div class="images-box space-y-10">
+																<div class="d-flex space-x-10">
+																	<img style="width: 33.33%;"
+																		src="{{collection.image_1.url}}"
+																		alt="">
+																	<img style="width: 33.33%;"
+																		src="{{collection.image_2.url}}"
+																		alt="">
+																	<img style="width: 33.33%;"
+																		src="{{collection.image_3.url}}"
+																		alt="">
+																</div>
+																<div>
+																	<img src="{{collection.image_main.url}}"
+																		alt="">
+																</div>
+															</div>
+														</div>
+														<div class="collections_footer justify-content-between">
+															<h5 class="collection_title"><a href="Profile.html">{{collection.title}}
+																</a></h5>
+															<a href="#" class="likes space-x-3">
+																<i class="ri-heart-3-fill"></i>
+																<span class="txt_md">2.1k</span>
+															</a>
+														</div>
+														<div class="creators space-x-10">
+															<span class="color_text txt_md">{{collection.quantity}} items · Created by</span>
+
+														</div>
+													</div>
+												</div>
+												{% endfor %}
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+
+{% endblock %}

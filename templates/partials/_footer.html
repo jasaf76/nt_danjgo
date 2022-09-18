@@ -1,0 +1,95 @@
+{% load static %}
+{% load static %}
+<footer class="footer__1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 space-y-20">
+                <div class="footer__logo">
+                    <a href="index.html">
+                        <img src="{% static 'img/logos/Logo.png' %}" alt="logo" id="logo_js_f">
+                    </a>
+                </div>
+                <p class="footer__text">
+                    Nft Pro is a shared liquidity NFT market smart contract
+                </p>
+                <div>
+                    <ul class="footer__social space-x-10 mb-40">
+                        <li><a href="https://facebook.com"> <i class="ri-facebook-line"></i> </a>
+                        </li>
+                        <li><a href="https://messenger.com"> <i class="ri-messenger-line"></i> </a>
+                        </li>
+                        <li><a href="https://whatsapp.com"> <i class="ri-whatsapp-line"></i> </a>
+                        </li>
+                        <li><a href="https://youtube.com"> <i class="ri-youtube-line"></i> </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-6">
+                <h6 class="footer__title">Nft Pro</h6>
+                <ul class="footer__list">
+                    <li><a href="#"> Collections </a></li>
+                    <li><a href="#"> Contact</a></li> </a>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-6">
+                <h6 class="footer__title">Assets</h6>
+                <ul class="footer__list">
+                    <li><a href="#"> Profile </a>
+                    </li>
+                    <li><a href="#"> Creators </a>
+                    </li>
+                    <li><a href="#"> Colletctions </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-6">
+                <h6 class="footer__title">Company</h6>
+                <ul class="footer__list">
+                    <li><a href="#"> About Us </a>
+                    </li>
+                    <li><a href="#"> Upload </a></li>
+                    <li><a href="#"> Item details </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <p class="copyright text-center">
+            Copyright © 2022. NFT PRO.
+        </p>
+
+    </div>
+</footer>
+<script type="text/javascript">
+var n1 = document.getElementById("num1");
+var n2 = document.getElementById("num2");
+var res = document.getElementById("result");
+
+document.getElementById("div").addEventListener("click", function() {
+res.value = parseInt(n1.value)/parseInt(n2.value);
+});
+</script>
+	<script>
+			    $(".dark").on('click', function (e) {
+
+				document.getElementById("img_js").src = "{% static 'img/bg/in_hero1_dark.png' %}"
+
+
+			});
+			$(".light").on('click', function (e) {
+				document.getElementById("img_js").src = "{% static 'img/bg/in_hero1.png' %}"
+			});
+			</script>
+		<!-- 🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 SCRIPTS -->
+		<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+		<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+		<script src="{% static 'js/gsap.min.js' %}"></script>
+		<script src="{% static 'js/ScrollTrigger.min.js' %}"></script>
+		<script src="{% static 'js/sticky-sidebar.js' %}"></script>
+		<script src="{% static 'js/script.js' %}"></script>
+		<script src="{% static 'js/web3.min.js' %}"></script>
+		<script src="{% static 'js/moralis.js' %}"></script>
+		<script src="{% static 'js/nft.js' %}"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+		<script src="{% static 'js/lottie-player.js' %}"></script>

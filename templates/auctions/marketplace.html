@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | Marketplace {% endblock %}
+
+{% block content %}
+
+<div class="hero_marketplace bg_white">
+    <div class="container">
+        <h2 class="text-center">NFT Marketplace</h2>
+    </div>
+</div>
+
+<div class="container">
+    <div class="section mt-100">
+        <div class="section__head">
+            <h2 class="section__title mb-20"> Artworks</h2>
+            <!--
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-auto">
+                    <div class="d-flex align-items-center">
+			                        <span class="color_text txt_sm d-none d-sm-block mr-10" style="min-width:
+			                            max-content">
+			                            FILTER BY:
+			                        </span>
+                        <ul class="menu_categories">
+                            <li class="d-flex switch_item">
+
+                                <input type="checkbox" id="switch1"/><label
+                                    for="switch1">Toggle</label>
+                                <span class="ml-10"> Has list price </span>
+                            </li>
+                            <li class="d-flex switch_item">
+
+                                <input type="checkbox" id="switch2" checked/><label
+                                    for="switch2">Toggle</label>
+                                <span class="ml-10"> Has open offer </span>
+                            </li>
+                            <li class="d-flex switch_item">
+
+                                <input type="checkbox" id="switch3"/><label
+                                    for="switch3">Toggle</label>
+                                <span class="ml-10"> Owned by creator </span>
+                            </li>
+                            <li class="d-flex switch_item">
+
+                                <input type="checkbox" id="switch4"/><label
+                                    for="switch4">Toggle</label>
+                                <span class="ml-10"> Has sold </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-auto">
+                    <div class="d-flex space-x-10 align-items-center sm:mt-20">
+                        <span class="color_text txt_sm"> SORT BY: </span>
+                        <div class="dropdown">
+                            <button
+                                    class="btn btn-dark btn-sm dropdown-toggle"
+                                    type="button"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                Recent Active
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else
+                                    here</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+        </div>
+                              <div class="row">
+                            {% if auction_list %}
+                                {% for auction in auction_list %}
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                    <div class="card__item four">
+                                        <div class="card_body space-y-10">
+                                            <!-- =============== -->
+                                            <div class="creators space-x-10">
+                                                <div class="avatars space-x-3">
+                                                    <a href="#">
+                                                        <img
+                                                                src="{{ user.userprofile.profile_photo.url }}"
+                                                                alt="Avatar"
+                                                                class="avatar avatar-sm"/>
+                                                    </a>
+                                                    <a href="#">
+                                                        <p class="avatars_name txt_xs">@{{auction.author}}</p>
+                                                    </a>
+                                                </div>
+                                                <div class="avatars space-x-3">
+
+                                                    <a href="#">
+                                                        <p class="avatars_name txt_xs">@{{auction.author_2}}</p>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="card_head">
+                                                <a href="{% url 'auctions:detail' auction.id %}">
+                                                    <img
+                                                            src="{{ auction.image.url }}"
+                                                            alt="item
+                                                    img"/>
+                                                </a>
+                                                <a href="#" class="likes space-x-3">
+                                                    <i class="ri-heart-3-fill"></i>
+                                                    <span class="txt_sm"></span>
+                                                </a>
+                                            </div>
+                                            <!-- =============== -->
+
+                                            <h6 class="card_title">
+                                                <a class="color_black"
+                                                   href="{% url 'auctions:detail' auction.id %}">
+                                                    {{ auction.title}}
+                                                </a>
+                                            </h6>
+                                            <div class="card_footer d-block space-y-10">
+                                                <div class="card_footer justify-content-between">
+                                                    <div class="creators">
+                                                        <p class="txt_sm">{{ auction.quantity}} in stock</p>
+                                                    </div>
+                                                    <a href="#" class="">
+                                                        <p class="txt_sm">
+                                                            Price: <span class="color_green txt_sm">{{auction.min_value}}
+                                                            USD</span>
+                                                        </p>
+                                                    </a>
+                                                </div>
+                                                <div class="hr"></div>
+                                                {% if auction.is_active %}
+                                                <div class="d-flex align-items-center space-x-10 justify-content-between">
+                                                    {% if auction.remaining_minutes < 2 %}
+                                                    {{ auction.remaining_minutes }}mins
+                                                    {% else %}
+                                                    <div class="d-flex align-items-center space-x-5">
+                                                        <span>
+                                                            <p class="btn btn-sm btn-danger" style="width: auto">
+                                                                {{ auction.remaining_minutes }}mins Rem
+                                                            </p>
+                                                        </span>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% else %}
+                                                    <div class="auction-card-inactive">Expired</div>
+                                                    {% endif %}
+                                                    <a class="btn btn-sm btn-success"
+                                                       href="{% url 'auctions:detail' auction.id %}">Place Bid</a>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                 {% endfor %}
+                            {% else %}
+                                <center><h3>No NFTs Found!</h3></center>
+                        {% endif %}
+                        </div>
+
+{% endblock %}

@@ -1,0 +1,252 @@
+{% load static %}
+<header class="header__1 js-header" id="header">
+    <div class="container">
+        <div class="wrapper js-header-wrapper">
+            <div class="header__logo ml-30">
+                <a href="/">
+                    <img
+                            class="header__logo"
+                            id="logo_js"
+                            src="{% static 'img/logos/Logo.png' %}"
+                            alt="logo"
+                    />
+                </a>
+            </div>
+
+            <!-- ==================  -->
+            <div class="header__menu">
+                <ul class="d-flex space-x-20">
+                    <li>
+                        <a class="color_black" href="{% url 'auctions:index' %}"> Home</a>
+                    </li>
+                    <li>
+                        <a class="color_black" href="{% url 'auctions:marketplace' %}"> Marketplace</a>
+                    </li>
+                    <li>
+                        <a class="color_black" href="{% url 'auctions:creators' %}"> Creators</a>
+                    </li>
+                    <li>
+                        <a class="color_black" href="{% url 'auctions:collections' %}"> Collections</a>
+                    </li>
+                    <li>
+                        <a class="color_black" href="{% url 'auctions:contact' %}"> Contact</a>
+                    </li>
+                    <!--<li class="has_popup2">
+                        <a class="color_black is_new" href="#">Pages <i class="ri-more-2-fill"></i></a>
+                        <ul class="menu__popup2 space-y-20">
+                            <div class="row sub_menu_row">
+
+                                <div class="col-lg-6 space-y-10">
+
+                                    <li>
+                                        <a href="Item-details.html">
+                                            <i class="ri-gallery-line"></i>
+                                            Item details
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="is_new" href="ranking.html">
+                                            <i class="ri-funds-line"></i>
+                                            Ranking
+                                        </a>
+                                    </li>
+
+                                </div>
+                                <div class="col-lg-6 space-y-10">
+
+
+                                    <li>
+                                        <a href="Connect-wallet.html">
+                                            <i class="ri-wallet-3-line"></i>
+                                            Connect wallet
+                                        </a>
+                                    </li>
+
+
+                                    <li>
+                                        <a href="questions.html">
+                                            <i class="ri-question-line"></i>
+                                            FAQ
+                                        </a>
+                                    </li>
+
+                                </div>
+                            </div>
+                        </ul>
+                    </li>-->
+                </ul>
+            </div>
+            <!-- ================= -->
+            <div class="header__search">
+                <input type="text" placeholder="Search"/>
+                <button class="header__result">
+                    <i class="ri-search-line"></i>
+                </button>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="header__btns">
+                <a class="btn btn-primary btn-sm" href="{% url 'auctions:create' %}">Create</a>
+            </div>
+            <div class="d-flex align-items-center space-x-20">
+                <div class="header__notifications">
+                    <div class="header__btns">
+                        <a href="#" id="connectbtn">
+                            <img width="45" src="{% static 'img/icons/metamask.svg' %}" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="header__avatar">
+                    <div class="price">
+                        <span><strong>$ {{user.userprofile.current_balance}} </strong> </span>
+                    </div>
+                    <img
+                            class="avatar"
+                            src="{{user.userprofile.profile_photo.url}}"
+                            alt="avatar"
+                    />
+                    <div class="avatar_popup space-y-20">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span> {{ user.first_name }} {{ user.last_name }}</span>
+                        </div>
+                        <div class="d-flex align-items-center space-x-10">
+                            <p class="text-lg font-book text-green-400">Balance</p>
+
+                            <div class="info">
+                                <p class="w-full text-sm font-bold text-green-500">
+                                    <strong>{{user.userprofile.current_balance}} USD</strong>
+                                </p>
+                                <div class="hr"></div>
+                                <p class="w-full text-sm font-bold text-green-500">
+                                    <strong>0.906 ETH</strong>
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="hr"></div>
+                        <div class="links space-y-10">
+                            <a href="{% url 'dashboard' %}">
+                                <i class="ri-landscape-line"></i> <span> Dashboard</span>
+                            </a>
+                            <a href="{% url 'auctions:add_collection' %}">
+                                <i class="ri-pencil-line"></i> <span> Add Collection</span>
+                            </a>
+                            <a href="{% url 'auctions:my_bids' %}">
+                                <i class="ri-user-line"></i> <span> My items</span>
+                            </a>
+                            <!--<a href="#">
+                                <i class="ri-pencil-line"></i> <span> Edit Profile</span>
+                            </a>-->
+                            <a href="{% url 'auctions:deposit' %}">
+                                <i class="ri-bank-line"></i> <span> Deposit</span>
+                            </a>
+                            <a href="#" data-toggle="modal" data-target="#popup_buy">
+                                <i class="ri-wallet-3-line"></i> <span> Withdraw</span>
+                            </a>
+                            <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+                                <i class="ri-logout-circle-line"></i> <span> Logout</span>
+                            </a>
+                            <form action="{% url 'logout' %}" method="POST" id="logout">
+                                {% csrf_token %}
+                                <input type="hidden">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="header__btns">
+                    <a class="btn btn-primary btn-sm" href="{% url 'login'%}">Your Account</a>
+                </div>
+                <div class="header__burger js-header-burger"></div>
+            </div>
+            {% endif %}
+            <div class="header__burger js-header-burger"></div>
+            <div class="header__mobile js-header-mobile">
+                <div class="header__mobile__menu space-y-40">
+                    <ul class="d-flex space-y-20">
+                        <li><a class="color_black" href="{% url 'auctions:marketplace' %}"> Marketplace</a></li>
+                        <li><a class="color_black" href="{% url 'auctions:collections' %}"> Collections</a></li>
+                        <li><a class="color_black" href="#"> Profile</a></li>
+                        <li><a class="color_black" href="{% url 'auctions:creators' %}"> Creators</a></li>
+                        <!--<li class="has_popup2">
+                            <a class="color_black is_new" href="#">Pages <i class="ri-more-2-fill"></i></a>
+                            <ul class="menu__popup2 space-y-20">
+                                <div class="row sub_menu_row">
+
+                                    <div class="col-lg-6 space-y-10">
+
+                                        <li>
+                                            <a href="post_details.html">
+                                                <i class="ri-chat-check-line"></i>
+                                                Forum details
+                                            </a>
+                                        </li>
+                                    </div>
+                                </div>
+                            </ul>
+                        </li>-->
+
+                    </ul>
+                    <div class="space-y-20">
+                        <div class="header__search in_mobile w-full">
+                            <input type="text" placeholder="Search"/>
+                            <button class="header__result">
+                                <i class="ri-search-line"></i>
+                            </button>
+                        </div>
+                        <a class="btn btn-grad btn-sm" href="Connect-wallet.html">Connect
+                            wallet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="modal fade popup" id="popup_buy" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <form method="POST" action="{% url 'auctions:withdraw' %}">
+        {% csrf_token %}
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body space-y-20 p-40">
+                    <h3>Withdraw</h3>
+                    <div class="space-y-10">
+                        <span class="nameInput">Please Enter Amount To Withdraw</span>
+                        <div class="space-y-10">
+                            <input type="number" name="amount" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="space-y-10">
+                        <span class="nameInput">Withdrawal Method</span>
+                        <div class="space-y-10">
+                            <input type="text" name="method" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="space-y-10">
+                        <span class="nameInput">Paypal or Crypto Address</span>
+                        <div class="space-y-10">
+                            <input type="text" name="address" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="space-y-10" hidden>
+                        <input type="text" name="user_id" value="1000000000" class="form-control">
+                    </div>
+                    <div class="space-y-10" hidden>
+                        <input type="text" name="email" value="{{user.email}}" class="form-control">
+                    </div>
+
+                    <div class="hr"></div>
+
+                    <input type="submit" value="Submit Request" class="btn btn-grad btn-block">
+
+                    <div class="hr"></div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

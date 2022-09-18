@@ -1,0 +1,467 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | Details {% endblock %}
+
+{% block content %}
+	<body class="body">
+
+
+			<div class="overflow-hidden">
+
+			<!-- ====== header -->
+
+			<div class="modal fade popup" id="popup_bid" tabindex="-1" role="dialog"
+			    aria-hidden="true">
+			    <div class="modal-dialog modal-dialog-centered" role="document">
+			        <div class="modal-content">
+			            <button type="button" class="close" data-dismiss="modal"
+			                aria-label="Close">
+			                <span aria-hidden="true">&times;</span>
+			            </button>
+
+			            <div class="modal-body space-y-20 p-40">
+							 {% if not own_auction %}
+        						{% if auction.is_active %}
+							<form action="{% url 'auctions:bid' auction.id %}" method="post">
+								{% csrf_token %}
+			                <h3>Place a Bid</h3>
+								{% if already_bid %}
+									<h3>Your Current bid: {{ bid_amount }} </h3>
+								{% endif %}
+			                <p>You must bid at least
+								<span class="color_black">
+									{% if auction.min_value %}
+										$ {{ auction.min_value}}
+									{% endif%} USD
+								</span>
+			                </p>
+			                <input type="text" class="form-control" name="amount" placeholder="50 USD">
+
+			                <p>Enter quantity.
+			                </p>
+			                <input type="text" class="form-control"
+			                    value="1">
+			                <div class="hr"></div>
+
+			                <div class="d-flex justify-content-between">
+			                    <p> service free:</p>
+			                    <p class="text-right color_black txt _bold"> 5 USD </p>
+			                </div>
+			                <!--<div class="d-flex justify-content-between">
+			                    <p> Total bid amount:</p>
+			                    <p class="text-right color_black txt _bold"> 505 USD </p>
+			                </div>-->
+			                <div class="col-md-auto col-12 mb-20">
+								<input type="submit"
+									   name="submit_button"
+									   class="btn btn-grad btn_create"
+									   value="Create Item">
+							</div>
+							</form>
+								{% else %}
+									<h1 class="btn btn-white btn-lg"> This Item has Already Expired</h1>
+								{% endif %}
+							{% else %}
+							<h1 class="btn btn-white btn-lg">You Can't bid your own item </h1>
+							{% endif %}
+			            </div>
+			        </div>
+			    </div>
+			</div>
+				<div class="modal fade popup" id="popup_bid_success" tabindex="-1" role="dialog"
+			    aria-hidden="true">
+			    <div class="modal-dialog modal-dialog-centered" role="document">
+			        <div class="modal-content">
+			            <button type="button" class="close" data-dismiss="modal"
+			                aria-label="Close">
+			                <span aria-hidden="true">&times;</span>
+			            </button>
+			            <div class="modal-body space-y-20 p-40">
+			                <h3 class="text-center">Your Bidding
+			                    Successfuly Added</h3>
+			                <p class="text-center">your bid <span class="color_text txt
+			                        _bold">(16ETH) </span> has been listing
+			                    to our database</p>
+
+			                <a href="#" class="btn btn-dark w-full"> Watch the listings</a>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<div class="modal fade popup" id="popup_bid_success" tabindex="-1" role="dialog"
+			    aria-hidden="true">
+			    <div class="modal-dialog modal-dialog-centered" role="document">
+			        <div class="modal-content">
+			            <button type="button" class="close" data-dismiss="modal"
+			                aria-label="Close">
+			                <span aria-hidden="true">&times;</span>
+			            </button>
+			            <div class="modal-body space-y-20 p-40">
+			                <h3 class="text-center">Your Bidding
+			                    Successfuly Added</h3>
+			                <p class="text-center">your bid <span class="color_text txt
+			                        _bold">(16ETH) </span> has been listing
+			                    to our database</p>
+
+			                <a href="#" class="btn btn-dark w-full"> Watch the listings</a>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<div class="modal fade popup" id="popup_report" tabindex="-1" role="dialog"
+			    aria-hidden="true">
+			    <div class="modal-dialog modal-dialog-centered" role="document">
+			        <div class="modal-content">
+			            <button type="button" class="close" data-dismiss="modal"
+			                aria-label="Close">
+			                <span aria-hidden="true">&times;</span>
+			            </button>
+			            <div class="modal-body space-y-20 p-40">
+
+			                <h3>Report this item</h3>
+			                <div class="hr"></div>
+			                <div class="form-group space-y-10">
+			                    <span class="variationInput">reason:</span>
+			                    <select class="form-select custom-select"
+			                        aria-label="Default select example">
+			                        <option> Select a reason</option>
+			                        <option>Purchase</option>
+			                        <option>Support</option>
+			                        <option>Technique</option>
+			                        <option>Service Request</option>
+			                    </select>
+			                </div>
+			                <div class="form-group space-y-10">
+			                    <span class="variationInput">Additional comments:</span>
+			                    <textarea name="..." cols="30" rows="10"
+			                        placeholder="Explain why you are concerned about it."></textarea>
+			                </div>
+			                <a href="#" class="btn btn-dark"> Report</a>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+
+
+			<div class="container">
+				<a href="{% url 'auctions:my_bids' %}" class="btn btn-white btn-sm my-40">
+					Go Back
+				</a>
+				<div class="item_details">
+					<div class="row sm:space-y-20">
+						<div class="col-lg-6">
+							<img class="item_img" src="{{ auction.image.url }}"
+								alt="">
+						</div>
+						<div class="col-lg-6">
+							<div class="space-y-20">
+								<h3>{{ auction.title }}</h3>
+								<div class="d-flex justify-content-between">
+									<div class="space-x-10 d-flex align-items-center">
+										<p>1 of 1</p>
+										<a href="#" class="likes space-x-3">
+											<i class="ri-heart-3-fill"></i>
+											<span class="txt_sm">2.1k</span>
+										</a>
+									</div>
+									<div class="space-x-10 d-flex align-items-center">
+										<div class="share">
+											<div class="icon">
+												<a href="#"> <i class="ri-share-line"></i>
+												</a>
+											</div>
+											<div class="dropdown__popup">
+												<ul class="space-y-10">
+													<li> <a href="#"> <i
+																class="ri-facebook-line"></i>
+														</a>
+													</li>
+													<li> <a href="#"> <i
+																class="ri-messenger-line"></i>
+														</a>
+													</li>
+													<li> <a href="#"> <i
+																class="ri-whatsapp-line"></i>
+														</a>
+													</li>
+													<li> <a href="#"> <i
+																class="ri-youtube-line"></i>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="more">
+											<div class="icon">
+												<a href="#"> <i class="ri-more-fill"></i>
+												</a>
+											</div>
+											<div class="dropdown__popup">
+												<ul class="space-y-10">
+													<li>
+														<a href="#" class="space-x-10
+															d-flex"
+															data-toggle="modal"
+															data-target="#popup_report">
+															<i class="ri-flag-line"></i>
+															<span> Report
+															</span>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="dropdown">
+									<button class="btn btn-white btn-sm
+										dropdown-toggle" type="button" data-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false">
+										View proof of authenticity
+									</button>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" href="https://ipfs.io/" target="_blank">
+											<span>
+												<img src="{% static 'img/icons/ipfs.svg' %}" width="20"
+													alt="">
+												View on IPFS
+											</span>
+											<i class="ri-external-link-line color_brand"></i>
+
+
+										</a>
+										<a class="dropdown-item" href="https://etherscan.io/" target="_blank">
+											<span>
+												<img src="{% static 'img/icons/ether.png' %}" width="20" alt="">
+												View on Etherscan
+											</span>
+											<i class="ri-external-link-line color_brand"></i>
+										</a>
+									</div>
+								</div>
+								<div class="box">
+									<div class="space-y-20">
+										<div class="d-flex justify-content-between
+											mb-30_reset">
+											<ul class="nav nav-tabs d-flex space-x-10 mb-30"
+												role="tablist">
+												<li class="nav-item">
+													<a
+														class="btn btn-white btn-sm active"
+														data-toggle="tab"
+														href="#tabs-1"
+														role="tab">
+														Details</a>
+												</li>
+												<li class="nav-item">
+													<a
+														class="btn btn-white btn-sm"
+														data-toggle="tab"
+														href="#tabs-2"
+														role="tab">
+														Bids</a>
+												</li>
+												<!--<li class="nav-item">
+													<a
+														class="btn btn-white btn-sm"
+														data-toggle="tab"
+														href="#tabs-3"
+														role="tab">
+														History</a>
+												</li>-->
+											</ul>
+											<!-- Tab panes -->
+											<div class="dropdown d-none d-sm-block">
+												<button
+													class="btn btn-white btn-sm
+													dropdown-toggle"
+													type="button"
+
+													data-toggle="dropdown"
+													aria-haspopup="true"
+													aria-expanded="false">
+													Recent Active
+												</button>
+												<div
+													class="dropdown-menu">
+													<a class="dropdown-item" href="#">Action</a>
+													<a class="dropdown-item" href="#">Another
+														action</a>
+													<a class="dropdown-item" href="#">Something
+														else here</a>
+												</div>
+											</div>
+										</div>
+										<div class="hr"></div>
+										<div class="tab-content">
+											<div class="tab-pane active" id="tabs-1"
+												role="tabpanel">
+												<p>
+													{{ auction.desc }}
+												</p>
+											</div>
+											<div class="tab-pane" id="tabs-2"
+												role="tabpanel">
+												<p>No active bids yet. Be the first to make
+													a bid!</p>
+											</div>
+											<div class="tab-pane space-y-20" id="tabs-3"
+												role="tabpanel">
+												<div class="creator_item creator_card
+													space-x-10">
+													<div class="avatars space-x-10">
+														<div class="media">
+															<div class="badge">
+																<img
+																	src="assets/img/icons/Badge.svg"
+																	alt="">
+															</div>
+															<a href="#">
+																<img
+																	src="assets/img/avatars/avatar_1.png"
+																	alt="Avatar"
+																	class="avatar
+																	avatar-md">
+															</a>
+														</div>
+														<div>
+															<p class="color_black">Bid
+																accepted <span
+																	class="color_brand">1
+																	ETH</span> by <a
+																	class="color_black txt
+																	_bold"
+																	href="Profile.html">ayoub</a></p>
+															<span class="date color_text">28/06/2021,
+																12:08</span>
+														</div>
+													</div>
+												</div>
+												<div class="creator_item creator_card
+													space-x-10">
+													<div class="avatars space-x-10">
+														<div class="media">
+															<div class="badge">
+																<img
+																	src="assets/img/icons/Badge.svg"
+																	alt="">
+															</div>
+															<a href="Profile.html">
+																<img
+																	src="assets/img/avatars/avatar_2.png"
+																	alt="Avatar"
+																	class="avatar
+																	avatar-md">
+															</a>
+														</div>
+														<div>
+															<p class="color_black">Bid
+																accepted <span
+																	class="color_brand">3
+																	ETH</span> by <a
+																	class="color_black txt
+																	_bold"
+																	href="Profile.html">monir</a></p>
+															<span class="date color_text">22/05/2021,
+																12:08</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="numbers">
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="space-y-5">
+												<p class="color_text">Minimum bid</p>
+												<h4>
+													{% if auction.min_value %}
+														$ {{ auction.min_value}}
+													{% endif%} <span class="txt_sm color_text">
+														</span>
+												</h4>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="space-y-5">
+												<p class="color_text">countdown</p>
+												<div class="d-flex countdown_item
+													align-items-center">
+													<div class="item">
+														<div class="number hours">22<span></span></div>
+													</div>
+													<div class="dots">:</div>
+													<div class="item">
+														<div class="number minutes">04<span></span></div>
+													</div>
+													<div class="dots">:</div>
+													<div class="item">
+														<div class="number seconds">35<span></span></div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="hr2"></div>
+								<div class="creators">
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="avatars space-x-5">
+												<div class="media">
+													<a href="#"><strong>Owner: </strong></a>
+												</div>
+												<div>
+													<a href="#">
+														<p class="avatars_name color_black">@{{auction.author}}...</p>
+													</a>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="avatars space-x-5">
+												<div class="media">
+													<div class="badge">
+														<img class="badge"
+															src="assets/img/icons/Badge.svg"
+															alt="">
+													</div>
+													<a href="#"> <strong>Co-owner: </strong></a>
+												</div>
+												<div>
+													<a href="#">
+														<p class="avatars_name color_black">@{{auction.author_2}}...</p>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-flex space-x-20">
+									<a href="#" class="btn btn-orange btn-lg">
+										{% if not own_auction %}
+        									{% if auction.is_active %}
+												{% if already_bid %}
+													<h3> Current bid: {{ bid_amount }} </h3>
+												{% endif %}
+											{% endif %}
+										{%else%}
+											{% if auction.min_value %}
+											Min Bid: $ {{ auction.min_value}}
+											{% endif%}
+										{% endif %}
+									</a>
+									<a href="#" class="btn btn-grad btn-lg" data-toggle="modal"
+										data-target="#popup_bid"> Place bid</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+
+{% endblock %}

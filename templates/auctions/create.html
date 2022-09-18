@@ -1,0 +1,203 @@
+	{% load static %}
+<html lang="en">
+<head>
+		<meta charset="UTF-8" />
+		<meta name="title" content="Raroin" />
+		<meta name="description" content="Premium NFT marketplace theme" />
+		<meta
+			name="keywords"
+			content="bootstrap, creabik, ThemeForest, bootstrap5, agency theme, saas
+			theme, sass, html5"
+			/>
+		<meta name="robots" content="index, follow" />
+		<meta name="language" content="English" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title> NFT_Pro | Create an Auction </title>
+		<meta name="msapplication-TileColor" content="#da532c" />
+		<meta name="theme-color" content="#ffffff" />
+		<!-- 🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 STYLES -->
+		<link rel="stylesheet" href="{% static 'css/plugins/remixicon.css' %}" />
+		<link
+			rel="stylesheet"
+			href="{% static 'css/plugins/bootstrap.min.css' %}"
+			/>
+		<link
+			rel="stylesheet"
+			href="{% static 'css/plugins/swiper-bundle.min.css' %}"
+			/>
+		<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+	</head>
+	<body class="body">
+
+
+
+<div class="hero__upload">
+			    <div class="container">
+			        <div class="space-y-20">
+			            <a href="/" class="btn btn-white btn-sm switch">
+			                Go Home
+						</a>
+			            <h2 class="title">Create single collectible</h2>
+
+			        </div>
+			    </div>
+			</div>
+			<div class="modal fade popup" id="popup_preview" tabindex="-1" role="dialog"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<div class="modal-body space-y-20 p-0">
+							<div class="card__item three m-0 in__popup">
+								<div class="card_body space-y-10">
+									<!-- ???? =============== -->
+									<div class="card_head">
+										<img src="assets/img/items/item_4.png"
+											alt="">
+										<a href="#" class="likes space-x-3">
+											<i class="ri-heart-3-fill"></i>
+											<span class="txt_sm">2.1k</span>
+										</a>
+										<div class="action">
+											<a href="#" class="btn btn-primary btn-sm">
+												<i class="ri-pie-chart-line color_white"></i>
+												Place Your Bid
+											</a>
+										</div>
+									</div>
+									<!-- ???? =============== -->
+									<h6 class="card_title">
+										Colorful Abstract Painting
+									</h6>
+									<div class="card_footer d-block space-y-10">
+										<div class="d-flex justify-content-between">
+											<div class="creators space-x-10">
+												<div class="avatars -space-x-20">
+													<a href="Profile.html">
+														<img
+															src="assets/img/avatars/avatar_3.png"
+															alt="Avatar" class="avatar
+															avatar-sm">
+													</a>
+													<a href="Profile.html">
+														<img
+															src="(% static 'img/avatars/avatar_2.png' %}"
+															alt="Avatar" class="avatar
+															avatar-sm">
+													</a>
+												</div>
+												<a href="Profile.html">
+													<p class="avatars_name txt_sm">
+														@makinzi_jamy... </p>
+												</a>
+											</div>
+											<a href="#" class="space-x-3">
+												<p class="color_green txt_sm">0.001 ETH</p>
+											</a>
+										</div>
+										<div class="hr"></div>
+										<a href="#" class="d-flex align-items-center
+											space-x-10">
+											<i class="ri-vip-crown-line"></i>
+											<p class="color_text txt_sm" style="width:
+												auto;">Highest bid</p>
+											<span class="color_black txt_sm">0.001 ETH</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<form action="{% url 'auctions:create' %}" method="POST" enctype="multipart/form-data">
+        						{% csrf_token %}
+				<div class="box in__upload mb-120">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="left__part space-y-40 md:mb-20 upload_file">
+								<div class="space-y-20">
+									<img class="icon"
+										src="{% static 'img/icons/upload.svg' %}"
+										alt="">
+									<h5>Drag and drop your file</h5>
+									<p class="color_text">JPG, JPEG, PNG, GIF, WEBP</p>
+								</div>
+								<div class="space-y-20">
+									<p class="color_text">or choose a file</p>
+									<a href="#" class="btn btn-white"> Browse files </a>
+									<input type="file" accept="image/*" name="image">
+
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+
+								<div class="form-group space-y-10">
+								<div class="space-y-20">
+									<div class="space-y-10">
+										<span class="nameInput">Title</span>
+										<input type="text" class="form-control"
+											   name="title"
+											placeholder="e. g. `couple Abstract Painting'">
+									</div>
+									<div class="space-y-10">
+										<span class="nameInput">Description <span
+												class="color_text">
+												(optional) </span></span>
+										<input type="text" class="form-control"
+											   name="description"
+											placeholder="e. g. `one in a million...`">
+									</div>
+									<div class="space-y-10">
+										<span class="nameInput">Another Author <span
+												class="color_text">
+												(optional) </span></span>
+										<input type="text" class="form-control"
+											   name="author_2"
+											placeholder="e. g. `@kibcodes`">
+									</div>
+									<div class="space-y-10">
+										<span class="nameInput">Quantity</span>
+										<input type="text" class="form-control" name="quantity"
+											placeholder="e. g. `10`">
+									</div>
+
+									<div class="space-y-10">
+										<span class="nameInput">Enter Min. Value</span>
+										<input type="text" class="form-control" name="min_value"
+											placeholder="e. g. `raroin design art`">
+									</div>
+
+								</div>
+							</div>
+								 <div class="col-md-auto col-12 mb-20">
+									<input type="submit" name="submit_button" class="btn btn-grad btn_create" value="Create Item">
+								</div>
+								</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+		<!-- 🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 SCRIPTS -->
+		<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+		<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+		<script src="{% static 'js/gsap.min.js' %}"></script>
+		<script src="{% static 'js/ScrollTrigger.min.js' %}"></script>
+		<script src="{% static 'js/sticky-sidebar.js' %}"></script>
+		<script src="{% static 'js/script.js' %}"></script>
+		<script src="{% static 'js/web3.min.js' %}"></script>
+		<script src="{% static 'js/moralis.js' %}"></script>
+		<script src="{% static 'js/nft.js' %}"></script>
+		<script src="{% static 'js/lottie-player.js' %}"></script>
+	</body>
+</html>
